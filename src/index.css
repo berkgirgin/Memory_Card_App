@@ -1,0 +1,22 @@
+:root {
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.card-container {
+  height: 20rem;
+  width: 15rem;
+  border: 2px solid black;
+  background-color: blueviolet;
+}
+
+.card-image-container {
+  width: 100%;
+}
+
+.card-image-container > img {
+  object-fit: cover;
+}

@@ -9,6 +9,8 @@ function GameOverMessage({ finalScore, result, onPlayAgain, onQuit }) {
   let gameOverMessage;
   let gameOverImage;
 
+  let overlayRef = useRef();
+
   switch (result) {
     case "lost":
       gameOverMessage = "Game Over :(";
@@ -24,28 +26,35 @@ function GameOverMessage({ finalScore, result, onPlayAgain, onQuit }) {
   }
 
   return (
-    <div className="game-over-popup-main-container">
-      <div className="game-over-popup-title">{gameOverMessage}</div>
-      <div className="game-over-popup-image-container">
-        <img
-          src={gameOverImage}
-          alt="game-over-popup-image"
-          className="game-over-popup-image"
-        />
-      </div>
-      <div className="game-over-popup-score-message">
-        Final score: {finalScore}
+    <>
+      <div className="game-over-popup-main-container">
+        <div className="game-over-popup-title">{gameOverMessage}</div>
+        <div className="game-over-popup-image-container">
+          <img
+            src={gameOverImage}
+            alt="game-over-popup-image"
+            className="game-over-popup-image"
+          />
+        </div>
+        <div className="game-over-popup-score-message">
+          Final score: {finalScore}
+        </div>
+
+        <div className="game-over-popup-buttons-container buttons-container">
+          <button className="game-over-popup-button" onClick={onPlayAgain}>
+            Play Again
+          </button>
+          <button className="game-over-popup-button" onClick={onQuit}>
+            Change Difficulty
+          </button>
+        </div>
       </div>
 
-      <div className="game-over-popup-buttons-container buttons-container">
-        <button className="game-over-popup-button" onClick={onPlayAgain}>
-          Play Again
-        </button>
-        <button className="game-over-popup-button" onClick={onQuit}>
-          Change Difficulty
-        </button>
-      </div>
-    </div>
+      <div
+        ref={overlayRef}
+        className="game-over-popup-overlay overlay active"
+      ></div>
+    </>
   );
 }
 

@@ -4,7 +4,13 @@ import example_cardBoard from "../example_cardBoard.jsx";
 import GameOverMessage from "./GameOverMessage.jsx";
 import Scoreboard from "../components/Scoreboard.jsx";
 
-function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
+function GamePage({
+  numberOfCards,
+  fetchedCardBoard,
+  setDifficultyLevel,
+  bestScore,
+  setBestScore,
+}) {
   const [cardBoard, setCardBoard] = useState(fetchedCardBoard);
 
   const randomEntries = generateRandomEntriesArray(cardBoard, numberOfCards);
@@ -13,7 +19,6 @@ function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
   const [gameOverState, setGameOverState] = useState(null); // "won" or "lost" or null
 
   let currentScore = useRef(0);
-  const [bestScore, setBestScore] = useState(2);
 
   const cardsToDisplay = displayedEntries.map((displayedEntry, _index) => {
     return (
@@ -118,6 +123,8 @@ function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
     setGameOverState(null);
 
     // reset currentScore, update bestScore
+    setBestScore;
+
     if (bestScore < currentScore.current) {
       setBestScore(currentScore.current);
     }

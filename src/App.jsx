@@ -7,8 +7,10 @@ import LoadingScreen from "./components/Loading.jsx";
 function App() {
   const [difficultyLevel, setDifficultyLevel] = useState(null);
   const [pokemonData, setPokemonData] = useState([]);
+  const [bestScore, setBestScore] = useState(2);
+
   const [loading, setLoading] = useState(true); // state to track loading
-  const minimumLoadingScreenTime = 2000;
+  const minimumLoadingScreenTime = 1500;
 
   let numberOfCards, selectedCardBoard;
 
@@ -17,6 +19,9 @@ function App() {
       const data = await fetchPokemons();
       setPokemonData(data);
       // setLoading(false);
+      setTimeout(() => {
+        setLoading(false); // make sure loading is set to false only after data is fetched
+      }, minimumLoadingScreenTime);
 
       console.log("data finished fetching");
       console.log(data);
@@ -33,12 +38,8 @@ function App() {
       </>
     );
   } else if (loading) {
-    setTimeout(() => {
-      setLoading(false); // make sure loading is set to false only after data is fetched
-    }, minimumLoadingScreenTime);
     return (
       <>
-        {/* <div>difficultyLevel: {difficultyLevel}</div>; */}
         <LoadingScreen />
       </>
     );
@@ -76,6 +77,8 @@ function App() {
         numberOfCards={numberOfCards}
         fetchedCardBoard={selectedCardBoard}
         setDifficultyLevel={setDifficultyLevel}
+        bestScore={bestScore}
+        setBestScore={setBestScore}
       />
     </>
   );

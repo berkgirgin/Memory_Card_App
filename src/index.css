@@ -159,8 +159,8 @@ button:hover {
   top: 50%;
   left: 50%;
   margin-top: -200px;
-  margin-left: -200px;
-  width: 400px;
+  margin-left: -180px;
+  width: 360px;
   height: 400px;
 
   display: flex;
@@ -279,5 +279,13 @@ button:hover {
     padding: 1rem;
     margin: 0.5rem;
     font-size: 1.1rem;
+  }
+
+  .game-over-popup-main-container,
+  .start-page-main-container {
+    margin-top: -200px;
+    margin-left: -200px;
+    width: 400px;
+    height: 400px;
   }
 }

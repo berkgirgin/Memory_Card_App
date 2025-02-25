@@ -13,7 +13,7 @@ function GamePage({
 }) {
   const [cardBoard, setCardBoard] = useState(fetchedCardBoard);
 
-  const randomEntries = generateRandomEntriesArray(cardBoard, numberOfCards);
+  const randomEntries = generateRandomEntriesArray(cardBoard);
   const [displayedEntries, setDisplayedEntries] = useState(randomEntries);
 
   const [gameOverState, setGameOverState] = useState(null); // "won" or "lost" or null
@@ -32,44 +32,11 @@ function GamePage({
     );
   });
 
-  function generateRandomEntriesArray(_cardBoard, _numberOfCards) {
-    const selectedEntries = [];
-
-    // at least one element must be "isPlayed: false"
-    const unplayedEntries = _cardBoard.filter((entry) => !entry.isPlayed);
-
-    console.log("unplayedEntries.length", unplayedEntries.length);
-    if (unplayedEntries.length > 0) {
-      const randomUnplayedEntry =
-        unplayedEntries[Math.floor(Math.random() * unplayedEntries.length)];
-
-      selectedEntries.push(randomUnplayedEntry);
-    }
-
-    // selectedEntries.push(
-    //   unplayedEntries[Math.floor(Math.random() * unplayedEntries.length)]
-    // );
-
-    // now add the rest of the random entries
+  function generateRandomEntriesArray(_cardBoard) {
     const shuffledBoard = [..._cardBoard].sort(() => Math.random() - 0.5);
 
-    for (let entry of shuffledBoard) {
-      if (selectedEntries.length >= _numberOfCards) break;
-
-      if (selectedEntries.length === 0) {
-        selectedEntries.push(entry);
-      } else {
-        if (
-          !selectedEntries.some(
-            (selectedEntry) => selectedEntry.id === entry.id
-          )
-        ) {
-          selectedEntries.push(entry);
-        }
-      }
-    }
-
-    return selectedEntries;
+    return shuffledBoard;
+    // return selectedEntries;
   }
 
   function createUpdatedCardBoard(id) {
@@ -112,9 +79,7 @@ function GamePage({
     }
     console.log("before setDisplayedEntries");
 
-    setDisplayedEntries(
-      generateRandomEntriesArray(updatedCardBoard, numberOfCards)
-    );
+    setDisplayedEntries(generateRandomEntriesArray(updatedCardBoard));
 
     currentScore.current++;
   }
@@ -135,11 +100,10 @@ function GamePage({
     setCardBoard(updatedCardBoard);
 
     //shuffle the cards
-    const randomEntriesArray = generateRandomEntriesArray(
-      updatedCardBoard,
-      numberOfCards
-    );
+    const randomEntriesArray = generateRandomEntriesArray(updatedCardBoard);
     setDisplayedEntries(randomEntriesArray);
+
+    // make pop-up black background disappear
   }
 
   function resetGame() {
@@ -151,6 +115,8 @@ function GamePage({
   function gameOver(wonOrLost) {
     // gets input "won" or "lost"
 
+    // make pop-up black background appear
+
     if (wonOrLost === "lost") {
       console.log("YOU LOST!");
       setGameOverState("lost");
@@ -160,8 +126,6 @@ function GamePage({
     } else {
       throw new Error(`this function's inputs can only be "won" or "lost"`);
     }
-
-    // restartGame();
   }
 
   return (

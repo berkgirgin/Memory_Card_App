@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
+import birdPokemonImg from "../assets/images/pokemon_bird.png";
 
 function StartPage({ setDifficultyLevel }) {
   return (
     <div className="start-page-main-container">
       <div className="game-logo-container">
-        <img className="game-logo" src="/" alt="game-logo" />
+        <img className="game-logo" src={birdPokemonImg} alt="game-logo" />
       </div>
 
       <div className="game-title">Memory Game</div>
 
-      <div className="difficulty-levels-container">
+      <div className="difficulty-levels-container buttons-container">
         <button
           className="set-difficuly-button easy-difficuly-button"
           onClick={() => {

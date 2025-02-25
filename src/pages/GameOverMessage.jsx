@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import weirdPokemonImg from "../assets/images/pokemon_weird.png";
 // TO DO: add images for lost and won cases
 
 // gets the input "won" or "lost"
@@ -22,21 +23,21 @@ function GameOverMessage({ finalScore, result, onPlayAgain, onQuit }) {
       <div className="game-over-popup-title">{gameOverMessage}</div>
       <div className="game-over-popup-image-container">
         <img
-          src="/"
+          src={weirdPokemonImg}
           alt="game-over-popup-image"
           className="game-over-popup-image"
         />
       </div>
       <div className="game-over-popup-score-message">
-        Your final score is {finalScore}
+        Final score: {finalScore}
       </div>
 
-      <div className="game-over-popup-buttons-container">
+      <div className="game-over-popup-buttons-container buttons-container">
         <button className="game-over-popup-button" onClick={onPlayAgain}>
           Play Again
         </button>
         <button className="game-over-popup-button" onClick={onQuit}>
-          Quit
+          Change Difficulty
         </button>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import StartPage from "./pages/StartPage.jsx";
 import GamePage from "./pages/GamePage.jsx";
-import example_cardBoard from "./example_cardBoard.jsx";
 import fetchPokemons from "./fetchPokemons.jsx";
 import LoadingScreen from "./components/Loading.jsx";
 
@@ -9,6 +8,7 @@ function App() {
   const [difficultyLevel, setDifficultyLevel] = useState(null);
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(true); // state to track loading
+  const minimumLoadingScreenTime = 2000;
 
   let numberOfCards, selectedCardBoard;
 
@@ -16,11 +16,8 @@ function App() {
     const getPokemons = async () => {
       const data = await fetchPokemons();
       setPokemonData(data);
-      setLoading(false);
+      // setLoading(false);
 
-      // setTimeout(() => {
-      //   setLoading(false); // make sure loading is set to false only after data is fetched
-      // }, 1000);
       console.log("data finished fetching");
       console.log(data);
     };
@@ -30,17 +27,22 @@ function App() {
 
   // Start Page and Loading Screen
   if (difficultyLevel === null) {
-    return <StartPage setDifficultyLevel={setDifficultyLevel} />;
-  } else if (loading) {
     return (
       <>
-        <div>difficultyLevel: {difficultyLevel}</div>;
-        <LoadingScreen />; // Prevents rendering before data is ready
+        <StartPage setDifficultyLevel={setDifficultyLevel} />
+      </>
+    );
+  } else if (loading) {
+    setTimeout(() => {
+      setLoading(false); // make sure loading is set to false only after data is fetched
+    }, minimumLoadingScreenTime);
+    return (
+      <>
+        {/* <div>difficultyLevel: {difficultyLevel}</div>; */}
+        <LoadingScreen />
       </>
     );
   }
-
-  // const interimCardBoard = example_cardBoard;
 
   const easyLevelPokemons = pokemonData[0];
   const mediumLevelPokemons = pokemonData[1];
@@ -64,8 +66,12 @@ function App() {
 
   return (
     <>
-      <h1>welcome to Memory Card Game</h1>
-
+      <header>
+        <h1 className="game-title">
+          <span className="red-text">Poke</span>
+          <span className="white-text">Mon</span> Memory Game
+        </h1>
+      </header>
       <GamePage
         numberOfCards={numberOfCards}
         fetchedCardBoard={selectedCardBoard}

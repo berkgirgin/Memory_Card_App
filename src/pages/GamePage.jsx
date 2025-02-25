@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Card from "../components/Card.jsx";
 import example_cardBoard from "../example_cardBoard.jsx";
 import GameOverMessage from "./GameOverMessage.jsx";
+import Scoreboard from "../components/Scoreboard.jsx";
 
 function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
   const [cardBoard, setCardBoard] = useState(fetchedCardBoard);
@@ -19,8 +20,8 @@ function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
       <Card
         key={displayedEntry.id}
         cardEntry={displayedEntry}
-        onCardClick={() => {
-          onCardClick(displayedEntry);
+        playTurn={() => {
+          playTurn(displayedEntry);
         }}
       />
     );
@@ -80,8 +81,8 @@ function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
     return _cardBoard.every((card) => card.isPlayed);
   }
 
-  function onCardClick(_clickedCard) {
-    console.log("onCardClick is clicked");
+  function playTurn(_clickedCard) {
+    console.log("playTurn is clicked");
     console.log(_clickedCard.title);
 
     if (_clickedCard.isPlayed === true) {
@@ -136,7 +137,7 @@ function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
 
   function resetGame() {
     // to go back to the difficult settings
-    restartGame;
+    restartGame();
     setDifficultyLevel(null);
   }
 
@@ -158,18 +159,9 @@ function GamePage({ numberOfCards, fetchedCardBoard, setDifficultyLevel }) {
 
   return (
     <div className="game-page-main-container">
-      <div className="cards-container">{cardsToDisplay}</div>
+      <Scoreboard currentScore={currentScore.current} bestScore={bestScore} />
 
-      <div className="scoreboard-container">
-        <div className="current-score-container">
-          <div className="current-score-title">Current Score</div>
-          <div className="current-score-value">{currentScore.current}</div>
-        </div>
-        <div className="best-score-container">
-          <div className="best-score-title">Best Score</div>
-          <div className="best-score-value">{bestScore}</div>
-        </div>
-      </div>
+      <div className="cards-container">{cardsToDisplay}</div>
 
       <div className="game-over-message-main-container">
         {gameOverState && (

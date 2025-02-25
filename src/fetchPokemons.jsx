@@ -5,16 +5,17 @@ const easyLevelPokemonNames = [
   "bulbasaur",
   "charmander",
   "squirtle",
-  "mewtwo",
+  "meowth",
 ];
 const mediumLevelPokemonNames = [
   "mew",
-  "mewtwo",
+  "magmar",
   "venusaur",
   "blastoise",
   "charizard",
   "dragonite",
   "raichu",
+  "gastly",
 ];
 const hardLevelPokemonNames = [
   "articuno",
@@ -23,9 +24,13 @@ const hardLevelPokemonNames = [
   "jigglypuff",
   "snorlax",
   "weezing",
-  "exeggutor",
+  "gyarados",
   "poliwrath",
   "onix",
+  "tentacruel",
+  "mewtwo",
+  "machamp",
+  "alakazam",
 ];
 
 const allPokemonNamesArray = [
